@@ -60,8 +60,8 @@ $config = [
             'class' => 'app\components\PayPayPal', // note: this has to correspond with the newly created folder, else you'd get a ReflectionError
 
             // Next up, we set the public parameters of the class
-            'clientId' => 'AdiIVeoebTa4RFVcb2kbWBUaLOPzZFRz0W7Zhugv-JT1L6jMiXRvmQ-9lxBOKwCdJ9nNI0gL56R6Fv7q',
-            'clientSecret' => 'ENT0JlsBcbVuuJrFVO34KyLIWTqj6E63hreo9C8wPH4LpbkULWd5wVYlPNL3nM21bqfIfNvLySs7zQEZ',
+            'clientId' => 'AVP64gzaS3jE4rFxNEcfMHDFPTiPqFn3P_u-VIUxcmSw1_SLYBb4sZyi88PbZ0ADmF0JorTgTiGohBmG',
+            'clientSecret' => 'EHsgHHWY4ZHH2Kq-kDMgXLcbpIuhLafVu492XpCaluyPXO3HFdP8YaTHge2kPYBKdzpKcn_OPdpF-jaE',
             // You may choose to include other configuration options from PayPal
             // as they have specified in the documentation
         ],
