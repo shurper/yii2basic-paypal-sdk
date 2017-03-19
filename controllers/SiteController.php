@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\PayForm;
+use app\models\PaymentProcessing;
 
 class SiteController extends Controller
 {
@@ -111,6 +113,67 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Displays payments page.
+     *
+     * @return string
+     */
+    public function actionPayments()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('/site/login');
+        }
+
+        $model = new PayForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->pay()) {
+
+            Yii::$app->session->setFlash('paymentFormSubmitted');
+
+            return $this->refresh();
+        }
+        return $this->render('payments', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays payments page when customer comeback from paypal.
+     *
+     * @return string
+     */
+    public function actionProcessing()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('/site/login');
+        }
+
+        $model = new PaymentProcessing();
+
+        if ($model->load(Yii::$app->request->get(),'') && $model->success()) {
+
+            Yii::$app->session->setFlash('paymentSuccess');
+
+            return $this->render('payments', [
+                'model' => $model,
+            ]);
+
+        }elseif ($model->load(Yii::$app->request->get(),'') && $model->cancel()) {
+
+            Yii::$app->session->setFlash('paymentError');
+
+            return $this->render('payments', [
+                'model' => $model,
+            ]);
+
+        }else{
+            return $this->goHome();
+        }
+
+
+        
     }
 
     /**
